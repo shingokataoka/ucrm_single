@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  # [プロジェクトごとに設定]webアプリケーションのコンテナ
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    # ports:
+    #   - 8000:8000
+      # - 5173:5173
+    env_file:
+      - ./app.env
+      - ./db.env
+    volumes:
+      - ./app/:/app
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - '8081:80'
+    env_file:
+      # DBっ情報であるPMA_〇〇の値
+      - ./db.env
+    # environment:
+    depends_on:
+        - db
+
+  web:    # サービス名
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    ports:
+      - 81:80
+    depends_on:
+      - app
+    volumes:
+      - ./app/:/app
+
+  db:    # サービス名
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    # ports:
+      # ホスト(vpsやmac)側のポート左側はなくても良い
+      # - 3306:3306
+      # - 3306
+    env_file:
+      - ./db.env
+    environment:
+      TZ: 'UTC'
+    volumes:
+      - mysql-volume:/var/lib/mysql
+      
+volumes:
+  mysql-volume:
