@@ -20,4 +20,4 @@ php artisan migrate:fresh --seed<br>
 <br>
 # ブラウザでアクセス<br>
 http://localhost:81　でブラウザで開く<br>
-ポート番号81を変えたいなら、ucrm_single/直下のdocker_compose.ymlの「81:80」を適時編集してください。<br>
+ポート番号81を変えたい場合、ucrm_single/直下のdocker_compose.ymlの「81:80」を適時編集してください。<br>
