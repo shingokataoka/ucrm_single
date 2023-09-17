@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             RankSeeder::class
         ]);
 
-        \App\Models\Customer::factory(1000)->create();
+        \App\Models\Customer::factory(10000)->create();
 
         $items = \App\Models\Item::all();
 

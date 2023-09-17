@@ -140,8 +140,6 @@ class AnalysisController extends Controller
 
         // dd($data);
 
-
-
         return Inertia::render('Analysis');
     }
 
